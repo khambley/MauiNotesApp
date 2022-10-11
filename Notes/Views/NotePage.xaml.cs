@@ -1,4 +1,4 @@
-namespace Notes;
+namespace Notes.Views;
 
 public partial class NotePage : ContentPage
 {
@@ -9,7 +9,19 @@ public partial class NotePage : ContentPage
 		if(File.Exists(_filename))
 			TextEditor.Text = File.ReadAllText(_filename);
 	}
+    private void LoadNote(string fileName)
+    {
+        Models.Note noteModel = new Models.Note();
+        noteModel.Filename = fileName;
 
+        if (File.Exists(fileName))
+        {
+            noteModel.Date = File.GetCreationTime(fileName);
+            noteModel.Text = File.ReadAllText(fileName);
+
+        }
+        BindingContext = noteModel;
+    }
     private void SaveButton_Clicked(object sender, EventArgs e)
     {
         // Save the file.
