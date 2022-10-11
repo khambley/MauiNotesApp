@@ -6,8 +6,10 @@ public partial class NotePage : ContentPage
 	public NotePage()
 	{
 		InitializeComponent();
-		if(File.Exists(_filename))
-			TextEditor.Text = File.ReadAllText(_filename);
+		string appDataPath = FileSystem.AppDataDirectory;
+        string randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
+
+        LoadNote(Path.Combine(appDataPath, randomFileName));
 	}
     private void LoadNote(string fileName)
     {
